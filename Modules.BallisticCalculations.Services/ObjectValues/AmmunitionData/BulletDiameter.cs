@@ -1,8 +1,8 @@
 ﻿namespace Modules.BallisticCalculations.Services.ObjectValues.AmmunitionData;
 
-public sealed record BulletWeight<TUnit>
+public sealed record BulletDiameter<TUnit>
 {
-    public BulletWeight(double value, TUnit unit)
+    public BulletDiameter(double value, TUnit unit)
     {
         Value = value;
         Unit = unit;
@@ -10,5 +10,4 @@ public sealed record BulletWeight<TUnit>
 
     public double Value { get; }
     public TUnit Unit { get; }
-
 }

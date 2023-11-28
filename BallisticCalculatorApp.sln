@@ -15,39 +15,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShootingCalculations", "Sho
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fields", "Fields", "{5F1DBDDC-ECFD-482C-A98F-FACD6F3675AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Users.Domain", "Modules.Users.Domain\Modules.Users.Domain.csproj", "{2AD3CE5B-BF3E-48F7-BD63-81812EC834A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Users.Domain", "Modules.Users.Domain\Modules.Users.Domain.csproj", "{2AD3CE5B-BF3E-48F7-BD63-81812EC834A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Users.Application", "Modules.Users.Application\Modules.Users.Application.csproj", "{8D4E8FE4-2E93-4C0A-9030-4FC8965DD700}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Users.Application", "Modules.Users.Application\Modules.Users.Application.csproj", "{8D4E8FE4-2E93-4C0A-9030-4FC8965DD700}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Users.Infrastructure", "Modules.Users.Infrastructure\Modules.Users.Infrastructure.csproj", "{9281147F-889B-4E0D-AC6C-58F982CBA9B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Users.Infrastructure", "Modules.Users.Infrastructure\Modules.Users.Infrastructure.csproj", "{9281147F-889B-4E0D-AC6C-58F982CBA9B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Users.Persistence", "Modules.Users.Persistence\Modules.Users.Persistence.csproj", "{F0F5B0EE-CFC6-41EA-AE96-CDD3B22BD3EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Users.Persistence", "Modules.Users.Persistence\Modules.Users.Persistence.csproj", "{F0F5B0EE-CFC6-41EA-AE96-CDD3B22BD3EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.BallisticCards.Application", "Modules.BallisticCards.Application\Modules.BallisticCards.Application.csproj", "{701F81F7-624D-4DFE-8968-6803FAA16BA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.BallisticCards.Application", "Modules.BallisticCards.Application\Modules.BallisticCards.Application.csproj", "{701F81F7-624D-4DFE-8968-6803FAA16BA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.BallisticCards.Domain", "Modules.BallisticCards.Domain\Modules.BallisticCards.Domain.csproj", "{94EDF4FA-A106-4E0E-925C-FEB08B0110A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.BallisticCards.Domain", "Modules.BallisticCards.Domain\Modules.BallisticCards.Domain.csproj", "{94EDF4FA-A106-4E0E-925C-FEB08B0110A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.BallisticCards.Persistence", "Modules.BallisticCards.Persistence\Modules.BallisticCards.Persistence.csproj", "{BA595BCB-A449-408C-AA07-20231B9E425A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.BallisticCards.Persistence", "Modules.BallisticCards.Persistence\Modules.BallisticCards.Persistence.csproj", "{BA595BCB-A449-408C-AA07-20231B9E425A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.BallisticCards.Infrastructure", "Modules.BallisticCards.Infrastructure\Modules.BallisticCards.Infrastructure.csproj", "{12822DE0-A0F4-45B3-8D3E-E1BA6590759E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.BallisticCards.Infrastructure", "Modules.BallisticCards.Infrastructure\Modules.BallisticCards.Infrastructure.csproj", "{12822DE0-A0F4-45B3-8D3E-E1BA6590759E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Fields.Application", "Modules.Fields.Application\Modules.Fields.Application.csproj", "{7F07C04E-803E-4B86-AE41-83E1B813540E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Fields.Application", "Modules.Fields.Application\Modules.Fields.Application.csproj", "{7F07C04E-803E-4B86-AE41-83E1B813540E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Fields.Domain", "Modules.Fields.Domain\Modules.Fields.Domain.csproj", "{7025F8B5-E3B2-4F48-B802-0429DE3AA0AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Fields.Domain", "Modules.Fields.Domain\Modules.Fields.Domain.csproj", "{7025F8B5-E3B2-4F48-B802-0429DE3AA0AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Fields.Persistence", "Modules.Fields.Persistence\Modules.Fields.Persistence.csproj", "{F622C214-D905-4782-B13C-8ED552DB8AA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Fields.Persistence", "Modules.Fields.Persistence\Modules.Fields.Persistence.csproj", "{F622C214-D905-4782-B13C-8ED552DB8AA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Fields.Infrastructure", "Modules.Fields.Infrastructure\Modules.Fields.Infrastructure.csproj", "{F5A0ABFB-6325-4895-8BED-A1B246C51051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Fields.Infrastructure", "Modules.Fields.Infrastructure\Modules.Fields.Infrastructure.csproj", "{F5A0ABFB-6325-4895-8BED-A1B246C51051}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.BallisticCalculations.Interfaces", "Modules.BallisticCalculations.Interfaces\Modules.BallisticCalculations.Interfaces.csproj", "{12359E5D-F1C0-4954-A4C6-393BC804E069}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.BallisticCalculations.Interfaces", "Modules.BallisticCalculations.Interfaces\Modules.BallisticCalculations.Interfaces.csproj", "{12359E5D-F1C0-4954-A4C6-393BC804E069}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.BallisticCalculations.Services", "Modules.BallisticCalculations.Services\Modules.BallisticCalculations.Services.csproj", "{7EE38D7F-FC70-4C4E-9C16-3B3779FDDD4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.BallisticCalculations.Services", "Modules.BallisticCalculations.Services\Modules.BallisticCalculations.Services.csproj", "{7EE38D7F-FC70-4C4E-9C16-3B3779FDDD4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.ShootingCalculations.Interfaces", "Modules.ShootingCalculations.Interfaces\Modules.ShootingCalculations.Interfaces.csproj", "{7302AFD8-D395-44B9-ADB2-05C215BB6F83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.ShootingCalculations.Interfaces", "Modules.ShootingCalculations.Interfaces\Modules.ShootingCalculations.Interfaces.csproj", "{7302AFD8-D395-44B9-ADB2-05C215BB6F83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.ShootingCalculations.Services", "Modules.ShootingCalculations.Services\Modules.ShootingCalculations.Services.csproj", "{2E35F387-06A9-44E9-B49D-E943BA03B429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.ShootingCalculations.Services", "Modules.ShootingCalculations.Services\Modules.ShootingCalculations.Services.csproj", "{2E35F387-06A9-44E9-B49D-E943BA03B429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{2DCD963A-9AEE-4D9C-9B39-FA2A83589E9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{2DCD963A-9AEE-4D9C-9B39-FA2A83589E9C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{66E1DAC4-0EF3-4986-A28C-E9C2FA97AA17}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BallisticCalculations.Services.Tests", "BallisticCalculations.Services.Tests\BallisticCalculations.Services.Tests.csproj", "{49F69C46-6C24-4D45-A896-EC36E24B83B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +127,10 @@ Global
 		{2DCD963A-9AEE-4D9C-9B39-FA2A83589E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DCD963A-9AEE-4D9C-9B39-FA2A83589E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DCD963A-9AEE-4D9C-9B39-FA2A83589E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49F69C46-6C24-4D45-A896-EC36E24B83B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F69C46-6C24-4D45-A896-EC36E24B83B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F69C46-6C24-4D45-A896-EC36E24B83B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F69C46-6C24-4D45-A896-EC36E24B83B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,6 +158,7 @@ Global
 		{7302AFD8-D395-44B9-ADB2-05C215BB6F83} = {53309D8D-1632-446A-84C4-DCEC0B964B2A}
 		{2E35F387-06A9-44E9-B49D-E943BA03B429} = {53309D8D-1632-446A-84C4-DCEC0B964B2A}
 		{2DCD963A-9AEE-4D9C-9B39-FA2A83589E9C} = {841C1BFD-16FC-4188-ABC7-D7A3695D7371}
+		{49F69C46-6C24-4D45-A896-EC36E24B83B3} = {66E1DAC4-0EF3-4986-A28C-E9C2FA97AA17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00557022-8E2B-44F9-BE9E-91C562FD5B31}

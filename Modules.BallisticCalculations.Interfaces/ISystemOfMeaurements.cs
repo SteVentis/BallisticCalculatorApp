@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modules.BallisticCalculations.Services.Models
+namespace Modules.BallisticCalculations.Interfaces
 {
-    public class AmunitionData
+    public interface ISystemOfMeaurements<T> where T : Enum
     {
 
     }

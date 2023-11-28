@@ -1,14 +1,14 @@
 ﻿namespace Modules.BallisticCalculations.Services.ObjectValues.AmmunitionData;
 
-public sealed record BulletWeight<TUnit>
+public sealed record MuzzleVelocity<TUnit>
 {
-    public BulletWeight(double value, TUnit unit)
+    public MuzzleVelocity(double value, TUnit unit)
     {
         Value = value;
         Unit = unit;
     }
 
     public double Value { get; }
-    public TUnit Unit { get; }
 
+    public TUnit Unit { get; }
 }
