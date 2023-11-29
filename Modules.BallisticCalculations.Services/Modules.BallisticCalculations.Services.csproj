@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Enums\" />
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Modules.BallisticCalculations.Entities\Modules.BallisticCalculations.Core.csproj" />
   </ItemGroup>
 
 </Project>

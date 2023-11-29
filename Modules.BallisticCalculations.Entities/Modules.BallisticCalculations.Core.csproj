@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="BallisticCalculator" Version="1.1.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Modules.BallisticCalculations.Entities\Modules.BallisticCalculations.Core.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using Gehtsoft.Measurements;
 
 namespace Modules.BallisticCalculations.Services.ObjectValues.AtmosphereData;
 
-public class AtmosphereInputData
+public sealed record AtmosphereInputData
 {
     public AtmosphereInputData(
         Altitude<DistanceUnit> altitude, 
@@ -25,20 +25,5 @@ public class AtmosphereInputData
     public PressureAtSeaLevel PressureAtSeaLevel { get; private set; }
     public Humidity Humidity { get; private set; }
 
-    public static Task<Atmosphere> CreateAtmosphere(
-        Altitude<DistanceUnit> altitude,
-        Pressure<PressureUnit> pressure,
-        Temperature<TemperatureUnit> temperature,
-        PressureAtSeaLevel pressureAtSeaLevel,
-        Humidity humidity)
-    {
-        Atmosphere atmosphere = new(
-            altitude: new Measurement<DistanceUnit>(altitude.Value, altitude.Unit),
-            pressure: new Measurement<PressureUnit>(pressure.Value, pressure.Unit),
-            temperature: new Measurement<TemperatureUnit>(temperature.Value, temperature.Unit),
-            pressureAtSeaLevel: pressureAtSeaLevel.Value,
-            humidity: humidity.Value);
-
-        return Task.FromResult(atmosphere);
-    }
+    
 }
