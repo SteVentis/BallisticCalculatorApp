@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Modules.BallisticCalculations.Entities\Modules.BallisticCalculations.Core.csproj" />
+    <ProjectReference Include="..\Modules.BallisticCalculations.Core\Modules.BallisticCalculations.Core.csproj" />
   </ItemGroup>
 
 </Project>
