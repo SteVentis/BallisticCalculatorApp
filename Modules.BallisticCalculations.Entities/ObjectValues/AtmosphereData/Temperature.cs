@@ -1,4 +1,4 @@
-﻿namespace Modules.BallisticCalculations.Services.ObjectValues.AtmosphereData;
+﻿namespace Modules.BallisticCalculations.Core.ObjectValues.AtmosphereData;
 
 public sealed record Temperature<TUnit>
 {

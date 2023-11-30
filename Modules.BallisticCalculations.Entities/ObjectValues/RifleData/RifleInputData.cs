@@ -2,7 +2,7 @@
 using Gehtsoft.Measurements;
 using Modules.BallisticCalculations.Core.ObjectValues.RifleData;
 
-namespace Modules.BallisticCalculations.Services.ObjectValues.RifleData;
+namespace Modules.BallisticCalculations.Core.ObjectValues.RifleData;
 
 public sealed record RifleInputData
 {
@@ -20,11 +20,11 @@ public sealed record RifleInputData
         ZeroAtDistance = zeroAtDistance;
     }
 
-    public RifleName RifleName { get; private set; }
-    public RiflingStep<DistanceUnit> RiflingStep { get; private set; }
-    public TwistDirection TwistDirection { get; private set; }
-    public SightHeight<DistanceUnit> SightHeight { get; private set; }
-    public ZeroAtDistance<DistanceUnit> ZeroAtDistance { get; private set; }
+    public RifleName RifleName { get; }
+    public RiflingStep<DistanceUnit> RiflingStep { get; }
+    public TwistDirection TwistDirection { get; }
+    public SightHeight<DistanceUnit> SightHeight { get; }
+    public ZeroAtDistance<DistanceUnit> ZeroAtDistance { get; }
 
    
 }

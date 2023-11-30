@@ -1,8 +1,6 @@
-﻿using BallisticCalculator;
-using Gehtsoft.Measurements;
-using Modules.BallisticCalculations.Core.Abstractions;
+﻿using Gehtsoft.Measurements;
 
-namespace Modules.BallisticCalculations.Services.ObjectValues.AmmunitionData;
+namespace Modules.BallisticCalculations.Core.ObjectValues.AmmunitionData;
 
 public sealed record AmmunitionInputData
 {
@@ -21,10 +19,10 @@ public sealed record AmmunitionInputData
     }
 
     public BC BallisticCoefficient { get; set; }
-    public BulletDiameter<DistanceUnit> BulletDiameter { get; private set; }
-    public BulletWeight<WeightUnit> BulletWeight { get; private set; }
-    public BulletLength<DistanceUnit> BulletLength { get; private set; }
-    public MuzzleVelocity<VelocityUnit> MuzzleVelocity { get; private set; }
+    public BulletDiameter<DistanceUnit> BulletDiameter { get; }
+    public BulletWeight<WeightUnit> BulletWeight { get; }
+    public BulletLength<DistanceUnit> BulletLength { get; }
+    public MuzzleVelocity<VelocityUnit> MuzzleVelocity { get; }
 
 
 }

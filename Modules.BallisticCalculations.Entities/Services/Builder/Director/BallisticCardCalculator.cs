@@ -1,27 +1,29 @@
 ﻿using BallisticCalculator;
 using Modules.BallisticCalculations.Core.Abstractions.IBuilder;
 using Modules.BallisticCalculations.Core.Abstractions.IBuilder.IDirector;
-using Modules.BallisticCalculations.Services.Models;
+using Modules.BallisticCalculations.Core.Models;
 
-namespace Modules.BallisticCalculations.Core.Services.Builder.Director;
+namespace Modules.BallisticCalculations.Core.Builder.Director;
 
-public sealed class BallisticCardCalculator : ITrajectoryPointCalculator
+public sealed class BallisticCardCalculator : IBallisticCardCalculator
 {
-    private readonly ITrajectoryPointBuilder _builder;
+    private readonly IBallisticCardBuilder _builder;
 
-    public BallisticCardCalculator(ITrajectoryPointBuilder builder)
+    public BallisticCardCalculator(IBallisticCardBuilder builder)
     {
         _builder = builder;
     }
 
-    public async Task<List<TrajectoryPoint>> GenerateBallisticCard(InputBallisticData inputBallisticData)
+    public async Task<BallisticCard> Generate(InputBallisticData inputBallisticData)
     {
-        var rifle = await _builder.CreateRifle(inputBallisticData.RifleData);
-        var ammo = await _builder.CreateAmmunition(inputBallisticData.AmmunitionData);
-        var atmosphere = await _builder.CreateAtmosphere(inputBallisticData.AtmosphereData);
-        var wind = await _builder.CreateWind(inputBallisticData.WindData);
-        var shotParams = await _builder.CreateShotParameters(inputBallisticData.ShotParamsData, rifle, ammo, atmosphere);
+        Rifle rifle = await _builder.CreateRifle(inputBallisticData.RifleData);
+        Ammunition ammo = await _builder.CreateAmmunition(inputBallisticData.AmmunitionData);
+        Atmosphere atmosphere = await _builder.CreateAtmosphere(inputBallisticData.AtmosphereData);
+        Wind[] wind = await _builder.CreateWind(inputBallisticData.WindData);
+        ShotParameters shotParams = await _builder.CreateShotParameters(inputBallisticData.ShotParamsData, rifle, ammo, atmosphere);
+        List<TrajectoryPoint> trajectoryPoints = await _builder.CreateTrajectoryPoints(ammo, atmosphere, rifle, shotParams, wind);
 
-        return await _builder.Build(ammo, atmosphere, rifle, shotParams, wind);
+
+        return await _builder.Build(inputBallisticData.RifleData,inputBallisticData.AmmunitionData, inputBallisticData.ShotParamsData, trajectoryPoints);
     }
 }

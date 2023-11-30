@@ -1,10 +1,10 @@
-﻿using Modules.BallisticCalculations.Services.ObjectValues.AmmunitionData;
-using Modules.BallisticCalculations.Services.ObjectValues.AtmosphereData;
-using Modules.BallisticCalculations.Services.ObjectValues.RifleData;
-using Modules.BallisticCalculations.Services.ObjectValues.ShotParamsData;
-using Modules.BallisticCalculations.Services.ObjectValues.WindData;
+﻿using Modules.BallisticCalculations.Core.ObjectValues.AmmunitionData;
+using Modules.BallisticCalculations.Core.ObjectValues.AtmosphereData;
+using Modules.BallisticCalculations.Core.ObjectValues.RifleData;
+using Modules.BallisticCalculations.Core.ObjectValues.ShotParamsData;
+using Modules.BallisticCalculations.Core.ObjectValues.WindData;
 
-namespace Modules.BallisticCalculations.Services.Models;
+namespace Modules.BallisticCalculations.Core.Models;
 
 public class InputBallisticData
 {
@@ -21,10 +21,10 @@ public class InputBallisticData
         ShotParamsData = shotParamsData;
     }
 
-    public AmmunitionInputData AmmunitionData { get; set;}
-    public RifleInputData RifleData { get; set;}
-    public WindInputData WindData { get; set;}
-    public AtmosphereInputData AtmosphereData { get; set; }
-    public ShotParamsInputData ShotParamsData { get; set;} 
+    public AmmunitionInputData AmmunitionData { get; }
+    public RifleInputData RifleData { get; }
+    public WindInputData WindData { get; }
+    public AtmosphereInputData AtmosphereData { get; }
+    public ShotParamsInputData ShotParamsData { get; } 
 
 }

@@ -1,4 +1,4 @@
-﻿namespace Modules.BallisticCalculations.Services.ObjectValues.WindData;
+﻿namespace Modules.BallisticCalculations.Core.ObjectValues.WindData;
 
 public sealed record WindVelocity<TUnit>
 {

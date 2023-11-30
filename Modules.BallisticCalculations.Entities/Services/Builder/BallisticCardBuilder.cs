@@ -1,15 +1,17 @@
 ﻿using BallisticCalculator;
 using Gehtsoft.Measurements;
 using Modules.BallisticCalculations.Core.Abstractions.IBuilder;
-using Modules.BallisticCalculations.Services.ObjectValues.AmmunitionData;
-using Modules.BallisticCalculations.Services.ObjectValues.AtmosphereData;
-using Modules.BallisticCalculations.Services.ObjectValues.RifleData;
-using Modules.BallisticCalculations.Services.ObjectValues.ShotParamsData;
-using Modules.BallisticCalculations.Services.ObjectValues.WindData;
+using Modules.BallisticCalculations.Core.Models;
+using Modules.BallisticCalculations.Core.ObjectValues.AmmunitionData;
+using Modules.BallisticCalculations.Core.ObjectValues.AtmosphereData;
+using Modules.BallisticCalculations.Core.ObjectValues.RifleData;
+using Modules.BallisticCalculations.Core.ObjectValues.ShotParamsData;
+using Modules.BallisticCalculations.Core.ObjectValues.WindData;
+using Modules.BallisticCalculations.Core.Services.Builder.Helper;
 
-namespace Modules.BallisticCalculations.Core.Services.Builder;
+namespace Modules.BallisticCalculations.Core.Builder;
 
-internal sealed class BallisticCardBuilder : ITrajectoryPointBuilder
+internal sealed class BallisticCardBuilder : IBallisticCardBuilder
 {
     public Task<Ammunition> CreateAmmunition(AmmunitionInputData input)
     {
@@ -85,11 +87,38 @@ internal sealed class BallisticCardBuilder : ITrajectoryPointBuilder
         return Task.FromResult(shotParameters);
     }
 
-    public Task<List<TrajectoryPoint>> Build(Ammunition ammunition, Atmosphere atmosphere, Rifle rifle, ShotParameters shotParams, Wind[] winds)
+    public Task<List<TrajectoryPoint>> CreateTrajectoryPoints(Ammunition ammunition, Atmosphere atmosphere, Rifle rifle, ShotParameters shotParams, Wind[] winds)
     {
         TrajectoryCalculator calc = new TrajectoryCalculator();
-        var trajectoryPoints = calc.Calculate(ammunition, rifle, atmosphere, shotParams, winds);
+        List<TrajectoryPoint> trajectoryPoints = calc.Calculate(ammunition, rifle, atmosphere, shotParams, winds).ToList();
 
-        return Task.FromResult(trajectoryPoints.ToList());
+        return Task.FromResult(trajectoryPoints);
+    }
+
+    public Task<BallisticCard> Build(RifleInputData rifle, AmmunitionInputData ammo, ShotParamsInputData shotParams, List<TrajectoryPoint> trajectoryPoints)
+    {
+
+        BallisticCard ballisticCard = new();
+        ballisticCard.RifleName = rifle.RifleName.Value;
+        ballisticCard.TrajectoryValues = new List<TrajectoryValues>();
+
+        TrajectoryValues trajectoryValues;
+
+        foreach (var trajectory in trajectoryPoints)
+        {
+            if (trajectory.Distance.Value >= shotParams.Step.Value)
+            {
+                trajectoryValues = new TrajectoryValues();
+                trajectoryValues.Distance = BallisticCardValuesFormat.Rounding(trajectory.Distance.In(shotParams.MaximumDistance.Unit));
+                trajectoryValues.Elevation = BallisticCardValuesFormat.RoundingAndConvertToAbsoluteValues(trajectory.DropAdjustment.In(shotParams.DropUnit.Unit));
+                trajectoryValues.Windage = BallisticCardValuesFormat.RoundingAndConvertToAbsoluteValues(trajectory.WindageAdjustment.In(shotParams.WindageUnit.Unit));
+                trajectoryValues.ToF = trajectory.Time.TotalSeconds;
+
+                ballisticCard.TrajectoryValues.Add(trajectoryValues);
+
+            }
+        }
+
+        return Task.FromResult(ballisticCard);
     }
 }

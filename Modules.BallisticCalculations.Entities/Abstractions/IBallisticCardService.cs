@@ -1,9 +1,9 @@
 ﻿using BallisticCalculator;
-using Modules.BallisticCalculations.Services.Models;
+using Modules.BallisticCalculations.Core.Models;
 
 namespace Modules.BallisticCalculations.Core.Abstractions;
 
 public interface IBallisticCardService
 {
-    Task<List<TrajectoryPoint>> GenerateBallisticCard(InputBallisticData data);
+    Task<BallisticCard> GenerateBallisticCard(InputBallisticData data);
 }

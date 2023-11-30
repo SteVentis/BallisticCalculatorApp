@@ -1,7 +1,7 @@
 ﻿using Gehtsoft.Measurements;
 using Modules.BallisticCalculations.Core.ObjectValues.ShotParamsData;
 
-namespace Modules.BallisticCalculations.Services.ObjectValues.ShotParamsData;
+namespace Modules.BallisticCalculations.Core.ObjectValues.ShotParamsData;
 
 public sealed record ShotParamsInputData
 {
@@ -14,8 +14,8 @@ public sealed record ShotParamsInputData
     }
 
     
-    public DropUnit<AngularUnit> DropUnit { get; set; }
-    public WindageUnit<AngularUnit> WindageUnit { get; set; }
-    public Step<DistanceUnit> Step { get; private set; }
-    public MaximumDistance<DistanceUnit> MaximumDistance { get; private set; }
+    public DropUnit<AngularUnit> DropUnit { get; }
+    public WindageUnit<AngularUnit> WindageUnit { get; }
+    public Step<DistanceUnit> Step { get; }
+    public MaximumDistance<DistanceUnit> MaximumDistance { get; }
 }

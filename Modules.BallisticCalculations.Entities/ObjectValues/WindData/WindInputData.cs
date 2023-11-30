@@ -1,17 +1,16 @@
-﻿using BallisticCalculator;
-using Gehtsoft.Measurements;
+﻿using Gehtsoft.Measurements;
 
-namespace Modules.BallisticCalculations.Services.ObjectValues.WindData;
+namespace Modules.BallisticCalculations.Core.ObjectValues.WindData;
 
 public sealed record WindInputData
 {
-    public WindInputData(WindDirection<AngularUnit> direction, WindVelocity<VelocityUnit> velocity)
+    public WindInputData(WindDirection<AngularUnit> windDirection, WindVelocity<VelocityUnit> windVelocity)
     {
-        WindDirection = direction;
-        WindVelocity = velocity;
+        WindDirection = windDirection;
+        WindVelocity = windVelocity;
     }
 
-    public WindDirection<AngularUnit> WindDirection { get; private set; }
-    public WindVelocity<VelocityUnit> WindVelocity { get; private set; }
+    public WindDirection<AngularUnit> WindDirection { get; }
+    public WindVelocity<VelocityUnit> WindVelocity { get; }
 
 }

@@ -1,4 +1,4 @@
-﻿namespace Modules.BallisticCalculations.Services.ObjectValues.ShotParamsData;
+﻿namespace Modules.BallisticCalculations.Core.ObjectValues.ShotParamsData;
 
 public sealed record Step<TUnit>
 {

@@ -1,6 +1,6 @@
 ﻿using BallisticCalculator;
 
-namespace Modules.BallisticCalculations.Services.ObjectValues.AmmunitionData;
+namespace Modules.BallisticCalculations.Core.ObjectValues.AmmunitionData;
 
 public sealed record BC
 {

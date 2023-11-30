@@ -1,4 +1,4 @@
-﻿namespace Modules.BallisticCalculations.Services.ObjectValues.RifleData;
+﻿namespace Modules.BallisticCalculations.Core.ObjectValues.RifleData;
 
 public sealed record RiflingStep<Tunit>
 {

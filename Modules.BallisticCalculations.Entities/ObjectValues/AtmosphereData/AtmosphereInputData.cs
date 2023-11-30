@@ -1,7 +1,7 @@
 ﻿using BallisticCalculator;
 using Gehtsoft.Measurements;
 
-namespace Modules.BallisticCalculations.Services.ObjectValues.AtmosphereData;
+namespace Modules.BallisticCalculations.Core.ObjectValues.AtmosphereData;
 
 public sealed record AtmosphereInputData
 {
@@ -19,11 +19,11 @@ public sealed record AtmosphereInputData
         Humidity = humidity;
     }
 
-    public Altitude<DistanceUnit> Altitude { get; private set; }
-    public Pressure<PressureUnit> Pressure { get; private set; }
-    public Temperature<TemperatureUnit> Temperature { get; private set; }
-    public PressureAtSeaLevel PressureAtSeaLevel { get; private set; }
-    public Humidity Humidity { get; private set; }
+    public Altitude<DistanceUnit> Altitude { get; }
+    public Pressure<PressureUnit> Pressure { get; }
+    public Temperature<TemperatureUnit> Temperature { get; }
+    public PressureAtSeaLevel PressureAtSeaLevel { get; }
+    public Humidity Humidity { get; }
 
     
 }
