@@ -1,4 +1,4 @@
-﻿namespace Modules.Security.Application.Abstractions;
+﻿namespace Modules.Security.Application.Abstractions.Authentication;
 
 public interface IPasswordManager
 {

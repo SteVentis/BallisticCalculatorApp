@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Modules.Security.Application.Abstractions;
+using Modules.Security.Application.Abstractions.Authentication;
 using Modules.Security.Domain.Repositories.Interfaces;
 using Modules.Security.Infrastructure.Authentication;
 using Modules.Security.Infrastructure.Context;
@@ -14,10 +14,11 @@ public static class SecurityModuleConfiguration
     {
 
         services.AddSingleton<IDbContext, DapperContext>();
-        services.AddScoped<IAuthRepository, AuthRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IPasswordManager, PasswordManager>();
         services.AddScoped<IAdminRepository, AdminRepository>();
         services.AddScoped<IJwtProvider, JwtProvider>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

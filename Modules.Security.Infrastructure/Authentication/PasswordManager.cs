@@ -1,4 +1,4 @@
-﻿using Modules.Security.Application.Abstractions;
+﻿using Modules.Security.Application.Abstractions.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 

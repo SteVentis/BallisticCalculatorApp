@@ -2,27 +2,30 @@
 using Modules.Security.Application.Dtos;
 using Modules.Security.Domain.Shared;
 using Modules.Security.Domain.Repositories.Interfaces;
-using AutoMapper;
 using Modules.Security.Domain.Models;
 using Modules.Security.Domain.ObjectValues.User;
+using Modules.Security.Application.Abstractions.Authentication;
 
 namespace Modules.Security.Application.Services;
 
 internal sealed class AuthService : IAuthService
 {
-    private readonly IAuthRepository _authRepo;
+    private readonly IUserRepository _userRepo;
     private readonly IPasswordManager _passwordManager;
     private readonly IJwtProvider _jwtProvider;
-    public AuthService(IAuthRepository authRepo, IPasswordManager passwordManager, IJwtProvider jwtProvider)
+    public AuthService(
+        IPasswordManager passwordManager, 
+        IJwtProvider jwtProvider, 
+        IUserRepository userRepo)
     {
-        _authRepo = authRepo;
         _passwordManager = passwordManager;
         _jwtProvider = jwtProvider;
+        _userRepo = userRepo;
     }
 
     public async Task<TResult<TokenResponse>> Login(UserLoginForm userLogin)
     {
-        var user = await _authRepo.FindExistedUserByEmailOrUsernameAsync(userLogin.EmailOrUsername);
+        var user = await _userRepo.FindExistedUserByEmailOrUsernameAsync(userLogin.EmailOrUsername);
 
         if (user is null)
         {
@@ -55,7 +58,7 @@ internal sealed class AuthService : IAuthService
 
     public async Task<Result> Register(UserRegistrationForm user)
     {
-        var checkIfUserExists = await _authRepo.FindExistedUserByEmailOrUsernameAsync(user.Email);
+        var checkIfUserExists = await _userRepo.FindExistedUserByEmailOrUsernameAsync(user.Email);
 
         if (checkIfUserExists is not null) 
         {
@@ -75,7 +78,7 @@ internal sealed class AuthService : IAuthService
             emailConfirmed, new PasswordHash(passwordHash), 
             new PasswordSalt(saltedPassword));
 
-        var result = await _authRepo.CreateUserAsync(userToBeAdded);
+        var result = await _userRepo.CreateUserAsync(userToBeAdded);
 
         // Check result with statement
 
