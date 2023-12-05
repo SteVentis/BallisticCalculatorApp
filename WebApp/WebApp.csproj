@@ -7,13 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.14" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Modules.BallisticCalculations.Core\Modules.BallisticCalculations.Core.csproj" />
-    <ProjectReference Include="..\Modules.WebApp.Endpoints\Modules.WebApp.Endpoints.csproj" />
+    <ProjectReference Include="..\Modules.BallisticCalculations.Endpoints\Modules.BallisticCalculations.Endpoints.csproj" />
+    <ProjectReference Include="..\Modules.Security.Domain\Modules.Security.Domain.csproj" />
+    <ProjectReference Include="..\Modules.Security.Endpoints\Modules.Security.Endpoints.csproj" />
+    <ProjectReference Include="..\Modules.Security.Infrastructure\Modules.Security.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\Modules.Security.Domain\Modules.Security.Domain.csproj" />
   </ItemGroup>
 
 </Project>

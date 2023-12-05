@@ -10,7 +10,7 @@ namespace Modules.BallisticCalculations.Core.config;
 
 public static class BallisticCalculationsConfiguration
 {
-    public static IServiceCollection AddBallisticCalculationsService(this IServiceCollection services)
+    public static IServiceCollection AddBallisticCalculationsModuleServices(this IServiceCollection services)
     {
 
         services.AddScoped<IBallisticCardBuilder, BallisticCardBuilder>();
