@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Modules.BallisticCalculations.Core.config;
 using Modules.BallisticCalculations.Endpoints;
+using Modules.Security.Domain.Models;
 using Modules.Security.Endpoints;
 using Modules.Security.Infrastructure.config;
+using Modules.Security.Infrastructure.Context;
 using Serilog;
+using System;
 using WebApp.AuthOptionSetup;
 using WebApp.Middleware;
 
@@ -19,12 +23,17 @@ builder.Services.AddSecurityModuleServices();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer();
 
-builder.Services.AddAuthorization( opt =>
-{
-    opt.AddPolicy("Administrator", policy => policy.RequireRole("Administrator"));
-    opt.AddPolicy("SuperUser", policy => policy.RequireRole("SuperUser"));
-    opt.AddPolicy("User", policy => policy.RequireRole("User"));
-});
+builder.Services.AddAuthorization();
+//    opt =>
+//{
+//    opt.AddPolicy("Administrator", policy => policy.RequireRole("Administrator"));
+//    opt.AddPolicy("SuperUser", policy => policy.RequireRole("SuperUser"));
+//    opt.AddPolicy("User", policy => policy.RequireRole("User"));
+//});
+
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityAppDbContext>()
+    .AddDefaultTokenProviders();
 
 // Jwt Settings
 builder.Services.ConfigureOptions<JwtSettingsSetup>();
@@ -45,6 +54,7 @@ builder.Host.UseSerilog(logger);
 builder.Services.AddScoped<ExceptionMiddleware>();
 
 var app = builder.Build();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

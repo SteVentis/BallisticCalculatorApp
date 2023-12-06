@@ -5,7 +5,7 @@ namespace Modules.Security.Application.Dtos;
 public record UserLoginForm
 {
     [Required]
-    public string EmailOrUsername { get; set; } = null!;
+    public string Username { get; set; } = null!;
 
     [Required]
     [DataType(DataType.Password)]

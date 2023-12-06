@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Modules.Security.Application.Abstractions.Authentication;
 using Modules.Security.Application.Dtos;
 using Modules.Security.Domain.Models;
-using Modules.Security.Domain.ObjectValues.RefreshToken;
 using Modules.Security.Domain.Repositories.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,35 +16,35 @@ internal sealed class JwtProvider : IJwtProvider
     private readonly IRefreshTokenRepository _tokenRepo;
     private readonly IUserRepository _userRepo;
     private readonly JwtSettings _jwtSettings;
-    private readonly IAdminRepository _adminRepo;
+    private readonly UserManager<User> _userManager;
     public JwtProvider(
         IRefreshTokenRepository authRepo, 
         IOptions<JwtSettings> jwtSettings, 
         IUserRepository userRepo, 
-        IAdminRepository adminRepo)
+        UserManager<User> userManager)
     {
         _tokenRepo = authRepo;
         _jwtSettings = jwtSettings.Value;
         _userRepo = userRepo;
-        _adminRepo = adminRepo;
+        _userManager = userManager;
     }
 
     public async Task<TokenResponse> GenerateJwtTokenAsync(User user, RefreshToken refreshToken)
     {
         var authClaims = new List<Claim>()
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.Value.ToString()),
-            new Claim(ClaimTypes.NameIdentifier, user.Username!.Value),
-            new Claim(JwtRegisteredClaimNames.Email, user.EmailAddress.Value), 
-            new Claim(JwtRegisteredClaimNames.Sub, user.EmailAddress.Value),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.NameIdentifier, user.UserName!),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email!), 
+            new Claim(JwtRegisteredClaimNames.Sub, user.Email!),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
-        var userRoles = await _adminRepo.GetRolesAsync();
+        var userRoles = await _userManager.GetRolesAsync(user);
 
         foreach (var role in userRoles)
         {
-            authClaims.Add(new Claim(ClaimTypes.Role, role.Name));
+            authClaims.Add(new Claim(ClaimTypes.Role, role));
         }
 
         var authSighninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));
@@ -62,7 +62,7 @@ internal sealed class JwtProvider : IJwtProvider
         {
             var refreshTokenResponse = new TokenResponse();
             refreshTokenResponse.Token = jwtToken;
-            refreshTokenResponse.RefreshToken = refreshToken.Token.Value;
+            refreshTokenResponse.RefreshToken = refreshToken.Token;
             refreshTokenResponse.ExpiresAt = token.ValidTo;
 
             return refreshTokenResponse;
@@ -74,13 +74,13 @@ internal sealed class JwtProvider : IJwtProvider
         newRefreshToken.UserId = user.Id;
         newRefreshToken.DateAdded = DateTime.UtcNow;
         newRefreshToken.DateExpire = DateTime.UtcNow.AddMonths(6);
-        newRefreshToken.Token = Token.Create();
+        newRefreshToken.Token = Guid.NewGuid().ToString() + "-" + Guid.NewGuid().ToString();
 
         await _tokenRepo.AddRefreshTokenAsync(newRefreshToken);
 
         var tokenResponse = new TokenResponse();
         tokenResponse.Token = jwtToken;
-        tokenResponse.RefreshToken = newRefreshToken.Token.Value;
+        tokenResponse.RefreshToken = newRefreshToken.Token;
         tokenResponse.ExpiresAt = token.ValidTo;
 
         return tokenResponse;
@@ -94,7 +94,7 @@ internal sealed class JwtProvider : IJwtProvider
 
         RefreshToken storedRefreshToken = await _tokenRepo.GetStoredRefreshTokenAsync(tokenRequest.RefreshToken);
 
-        User user = await _userRepo.FindUserByIdAsync(storedRefreshToken.UserId.Value);
+        User user = await _userRepo.FindUserByIdAsync(storedRefreshToken.UserId);
 
         try
         {

@@ -1,79 +1,45 @@
-﻿using Dapper;
+﻿using Microsoft.AspNetCore.Identity;
 using Modules.Security.Domain.Models;
 using Modules.Security.Domain.Repositories.Interfaces;
 using Modules.Security.Infrastructure.Context;
-using System.Data;
 
 namespace Modules.Security.Infrastructure.Repositories;
 
-internal sealed class UserRepository : IUserRepository
+internal sealed class UserRepository : RepositoryBase, IUserRepository
 {
-    private readonly IDbContext _dbContext;
-
-    public UserRepository(IDbContext dbConnection)
+    public UserRepository(IdentityAppDbContext dbContext, UserManager<User> userManager) : base(dbContext, userManager)
     {
-        _dbContext = dbConnection;
     }
 
-    public async Task<int> CreateUserAsync(User user)
+    public async Task<bool> CheckPasswordAsync(User user, string password) =>
+        await _userManager.CheckPasswordAsync(user, password);
+
+    public async Task<IdentityResult> CreateUserAsync(User user, string password)
     {
-        string query = "INSERT INTO Users " +
-                       "VALUES(" +
-                       "@Id, " +
-                       "@Username, " +
-                       "@NormalizedUsername, " +
-                       "@EmailAddress, " +
-                       "@NormalizedEmailAddress, " +
-                       "@EmailConfirmed, " +
-                       "@PasswordHash, " +
-                       "@PasswordSalt);";
+        var registerResult = await _userManager.CreateAsync(user, password);
 
-        var parameters = new DynamicParameters();
-        parameters.Add("Id", user.Id.Value, DbType.Guid);
-        parameters.Add("Username", user.Username!.Value, DbType.String);
-        parameters.Add("NormalizedUsername", user.NormalizedUsername, DbType.String);
-        parameters.Add("EmailAddress", user.EmailAddress, DbType.String);
-        parameters.Add("NormalizedEmailAddress", user.NormalizedEmailAddress, DbType.String);
-        parameters.Add("EmailConfirmed", user.EmailConfirmed, DbType.Boolean);
-        parameters.Add("PasswordHash", user.PasswordHash, DbType.String);
-        parameters.Add("PasswordSalt", user.PasswordSalt, DbType.String);
-
-        using (var connection = _dbContext.CreateConnection())
+        if (registerResult.Succeeded)
         {
-            var result = await connection.ExecuteAsync(query, parameters);
+            await _userManager.AddToRoleAsync(user, "User");
 
-            return result;
         }
 
+        return registerResult;
 
     }
 
-
-    public async Task<User> FindExistedUserByEmailOrUsernameAsync(string emailOrUsername)
+    public async Task<User> FindExistedUserByEmailAsync(string email)
     {
-        string query = "SELECT * " +
-                       "FROM Users " +
-                       "WHERE EmailAddress = @EmailOrUsername OR Username = @EmailOrUsername; ";
+        var user = await _userManager.FindByEmailAsync(email);
 
-        using (var connection = _dbContext.CreateConnection())
-        {
-            User? user = await connection.QuerySingleOrDefaultAsync<User>(query, new { emailOrUsername });
-
-            return user!;
-        }
+        return user!;
     }
 
-    public async Task<User> FindUserByIdAsync(Guid id)
+    public async Task<User> FindUserByIdAsync(string id)
     {
-        string query = "SELECT * " +
-                       "FROM Users " +
-                       "WHERE Id = @id ";
+        var user = await _userManager.FindByIdAsync(id);
 
-        using (var connection = _dbContext.CreateConnection())
-        {
-            User? user = await connection.QuerySingleOrDefaultAsync<User>(query, new { id });
-
-            return user!;
-        }
+        return user!;
     }
 }
+

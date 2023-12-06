@@ -1,10 +1,13 @@
-﻿using Modules.Security.Domain.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Modules.Security.Domain.Models;
 
 namespace Modules.Security.Domain.Repositories.Interfaces;
 
 public interface IUserRepository
 {
-    Task<int> CreateUserAsync(User user);
-    Task<User> FindExistedUserByEmailOrUsernameAsync(string emailOrUsername);
-    Task<User> FindUserByIdAsync(Guid id);
+    Task<bool> CheckPasswordAsync(User user, string password);
+    Task<IdentityResult> CreateUserAsync(User user, string password);
+    Task<User> FindExistedUserByEmailAsync(string email);
+    Task<User> FindUserByIdAsync(string id);
 }
+

@@ -2,30 +2,30 @@
 using Modules.Security.Application.Dtos;
 using Modules.Security.Domain.Shared;
 using Modules.Security.Domain.Repositories.Interfaces;
-using Modules.Security.Domain.Models;
-using Modules.Security.Domain.ObjectValues.User;
 using Modules.Security.Application.Abstractions.Authentication;
+using AutoMapper;
+using Modules.Security.Domain.Models;
 
 namespace Modules.Security.Application.Services;
 
-internal sealed class AuthService : IAuthService
+public sealed class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepo;
-    private readonly IPasswordManager _passwordManager;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IMapper _mapper;
     public AuthService(
-        IPasswordManager passwordManager, 
         IJwtProvider jwtProvider, 
-        IUserRepository userRepo)
+        IUserRepository userRepo, 
+        IMapper mapper)
     {
-        _passwordManager = passwordManager;
         _jwtProvider = jwtProvider;
         _userRepo = userRepo;
+        _mapper = mapper;
     }
 
     public async Task<TResult<TokenResponse>> Login(UserLoginForm userLogin)
     {
-        var user = await _userRepo.FindExistedUserByEmailOrUsernameAsync(userLogin.EmailOrUsername);
+        var user = await _userRepo.FindExistedUserByEmailAsync(userLogin.Username);
 
         if (user is null)
         {
@@ -33,9 +33,8 @@ internal sealed class AuthService : IAuthService
 
             return null!;
         }
-        var hashTheGivenPassword = _passwordManager.Hash(userLogin.Password, out byte[] saltedPassword);
 
-        var isPasswordValid = _passwordManager.Verify(userLogin.Password, hashTheGivenPassword, saltedPassword);
+        var isPasswordValid = await _userRepo.CheckPasswordAsync(user, userLogin.Password);
 
         if (!isPasswordValid)
         {
@@ -56,9 +55,9 @@ internal sealed class AuthService : IAuthService
         return TResult<TokenResponse>.Success(tokenResponse);
     }
 
-    public async Task<Result> Register(UserRegistrationForm user)
+    public async Task<Result> Register(UserRegistrationForm registerUser)
     {
-        var checkIfUserExists = await _userRepo.FindExistedUserByEmailOrUsernameAsync(user.Email);
+        var checkIfUserExists = await _userRepo.FindExistedUserByEmailAsync(registerUser.Email);
 
         if (checkIfUserExists is not null) 
         {
@@ -66,21 +65,15 @@ internal sealed class AuthService : IAuthService
 
             return null!;
         }
-        var passwordHash = _passwordManager.Hash(user.Password, out var saltedPassword);
 
-        // Email confirmation implementation
+        var userToBeAdded = _mapper.Map<User>(registerUser);
 
-        bool emailConfirmed = true;
+        var result = await _userRepo.CreateUserAsync(userToBeAdded, registerUser.Password);
 
-        var userToBeAdded = User.Create(
-            new Username(user.Username), 
-            new EmailAddress(user.Email), 
-            emailConfirmed, new PasswordHash(passwordHash), 
-            new PasswordSalt(saltedPassword));
-
-        var result = await _userRepo.CreateUserAsync(userToBeAdded);
-
-        // Check result with statement
+        if (!result.Succeeded)
+        {
+            return null!;
+        }
 
         return Result.Success();
     }

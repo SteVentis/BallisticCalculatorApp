@@ -1,43 +1,32 @@
-﻿using Dapper;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Modules.Security.Domain.Models;
 using Modules.Security.Domain.Repositories.Interfaces;
 using Modules.Security.Infrastructure.Context;
-using System.Data;
 
 namespace Modules.Security.Infrastructure.Repositories;
 
-internal sealed class AdminRepository : IAdminRepository
+internal sealed class AdminRepository : RepositoryBase, IAdminRepository
 {
-    private readonly IDbContext _dbContext;
-    public AdminRepository(IDbContext dbContext)
+    private readonly RoleManager<IdentityRole> _roleManager;
+    public AdminRepository(IdentityAppDbContext dbContext, UserManager<User> userManager, RoleManager<IdentityRole> roleManager) : base(dbContext, userManager)
     {
-        _dbContext = dbContext;
-    }
-    public async Task<IEnumerable<Role>> GetRolesAsync()
-    {
-        string query = "SELECT Name " +
-                       "FROM Roles; ";
-
-        using (var connection = _dbContext.CreateConnection())
-        {
-            var roles = await connection.QueryAsync<Role>(query);
-
-            return roles;
-        }
+        _roleManager = roleManager;
     }
 
-    public async Task AddRoleAsync(Role role)
+    public async Task<List<IdentityRole>> GetRolesAsync()
     {
-        string query = "INSERT INTO Role " +
-                       "VALUES ( " +
-                       "@Name, @NormalizedName);";
+        return await _roleManager.Roles.ToListAsync();
+    }
 
-        var parameters = new DynamicParameters();
-        parameters.Add("Name", role.Name, DbType.String);
-        parameters.Add("NormalizedName", role.NormalizedName, DbType.String);
-        using (var connection = _dbContext.CreateConnection())
+    public async Task AddRoleAsync(string roleName)
+    {
+        if (!_roleManager.RoleExistsAsync(roleName).Result)
         {
-            await connection.ExecuteAsync(query);
+            IdentityRole role = new IdentityRole();
+            role.Name = roleName;
+            await _roleManager.CreateAsync(role);
         }
+
     }
 }
