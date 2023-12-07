@@ -1,4 +1,4 @@
-﻿namespace Modules.Security.Infrastructure.Authentication;
+﻿namespace Modules.Security.Infrastructure.Authentication.Jwt;
 
 public class JwtSettings
 {

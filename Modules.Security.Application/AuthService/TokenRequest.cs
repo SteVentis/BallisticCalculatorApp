@@ -1,6 +1,6 @@
-﻿namespace Modules.Security.Application.Dtos;
+﻿namespace Modules.Security.Application.AuthService;
 
-public class TokenRequest
+public sealed record TokenRequest
 {
     public required string Token { get; set; } = null!;
 

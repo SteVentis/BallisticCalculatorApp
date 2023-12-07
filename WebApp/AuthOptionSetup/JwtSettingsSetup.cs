@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Modules.Security.Infrastructure.Authentication;
+using Modules.Security.Infrastructure.Authentication.Jwt;
 
 namespace WebApp.AuthOptionSetup;
 

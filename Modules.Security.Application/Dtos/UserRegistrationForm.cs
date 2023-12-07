@@ -4,7 +4,7 @@ namespace Modules.Security.Application.Dtos;
 
 public sealed record UserRegistrationForm
 {
-    public string Username { get; set; } = null!;
+    public string UserName { get; set; } = null!;
 
     [Required(ErrorMessage = "Email is required")]
     [EmailAddress]

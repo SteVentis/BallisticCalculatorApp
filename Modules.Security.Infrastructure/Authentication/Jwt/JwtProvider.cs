@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Modules.Security.Application.Abstractions.Authentication;
-using Modules.Security.Application.Dtos;
+using Modules.Security.Application.Abstractions.AuthProviders;
+using Modules.Security.Application.AuthService;
 using Modules.Security.Domain.Models;
 using Modules.Security.Domain.Repositories.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Modules.Security.Infrastructure.Authentication;
+namespace Modules.Security.Infrastructure.Authentication.Jwt;
 
 internal sealed class JwtProvider : IJwtProvider
 {
@@ -18,9 +18,9 @@ internal sealed class JwtProvider : IJwtProvider
     private readonly JwtSettings _jwtSettings;
     private readonly UserManager<User> _userManager;
     public JwtProvider(
-        IRefreshTokenRepository authRepo, 
-        IOptions<JwtSettings> jwtSettings, 
-        IUserRepository userRepo, 
+        IRefreshTokenRepository authRepo,
+        IOptions<JwtSettings> jwtSettings,
+        IUserRepository userRepo,
         UserManager<User> userManager)
     {
         _tokenRepo = authRepo;
@@ -35,7 +35,7 @@ internal sealed class JwtProvider : IJwtProvider
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.NameIdentifier, user.UserName!),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email!), 
+            new Claim(JwtRegisteredClaimNames.Email, user.Email!),
             new Claim(JwtRegisteredClaimNames.Sub, user.Email!),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
@@ -58,7 +58,7 @@ internal sealed class JwtProvider : IJwtProvider
 
         var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
 
-        if(refreshToken != null)
+        if (refreshToken != null)
         {
             var refreshTokenResponse = new TokenResponse();
             refreshTokenResponse.Token = jwtToken;
@@ -116,7 +116,7 @@ internal sealed class JwtProvider : IJwtProvider
         }
         catch (SecurityTokenExpiredException)
         {
-            if(storedRefreshToken.DateExpire >= DateTime.Now)
+            if (storedRefreshToken.DateExpire >= DateTime.Now)
             {
                 return await GenerateJwtTokenAsync(user, storedRefreshToken);
             }
@@ -124,7 +124,7 @@ internal sealed class JwtProvider : IJwtProvider
             {
                 return await GenerateJwtTokenAsync(user, null!);
             }
-            
+
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Modules.Security.Application.Dtos;
+﻿namespace Modules.Security.Application.AuthService;
 
-public class TokenResponse
+public sealed record TokenResponse
 {
     public string Token { get; set; } = null!;
     public string? RefreshToken { get; set; } = null!;
