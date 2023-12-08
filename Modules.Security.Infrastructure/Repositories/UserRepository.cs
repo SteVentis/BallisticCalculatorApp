@@ -11,18 +11,17 @@ internal sealed class UserRepository : RepositoryBase, IUserRepository
     {
     }
 
+    public async Task AddUserToRole(User user)
+    {
+        await _userManager.AddToRoleAsync(user, Role.User);
+    }
+
     public async Task<bool> CheckPasswordAsync(User user, string password) =>
         await _userManager.CheckPasswordAsync(user, password);
 
     public async Task<IdentityResult> CreateUserAsync(User user, string password)
     {
         var registerResult = await _userManager.CreateAsync(user, password);
-
-        if (registerResult.Succeeded)
-        {
-            await _userManager.AddToRoleAsync(user, "User");
-
-        }
 
         return registerResult;
 

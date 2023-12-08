@@ -14,29 +14,29 @@ public static class AuthEndpoints
 {
     public static void AddAuthEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/register", ([FromBody]UserRegistrationForm registerUser, ISender sender) =>
+        app.MapPost("/register", ([FromBody]UserRegistrationForm registerUser, CancellationToken cancellationToken, ISender sender) =>
         {
             var command = new RegisterCommand(registerUser);
 
-            var result = sender.Send(command);
+            var result = sender.Send(command, cancellationToken);
 
             return result;
         });
 
-        app.MapPost("/login", ([FromBody]UserLoginForm userLogin, ISender sender) =>
+        app.MapPost("/login", ([FromBody]UserLoginForm userLogin, CancellationToken cancellationToken, ISender sender) =>
         {
             var command = new LoginCommand(userLogin);
 
-            var result = sender.Send(command);
+            var result = sender.Send(command, cancellationToken);
 
             return result;
         });
 
-        app.MapPost("/refresh-token", ([FromBody]TokenRequest tokenRequest, ISender sender) =>
+        app.MapPost("/refresh-token", ([FromBody]TokenRequest tokenRequest, CancellationToken cancellationToken, ISender sender) =>
         {
             var command = new RefreshTokenCommand(tokenRequest);
 
-            var result = sender.Send(command);
+            var result = sender.Send(command, cancellationToken);
 
             return result;
         });

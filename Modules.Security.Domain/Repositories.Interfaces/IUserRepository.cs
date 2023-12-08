@@ -9,5 +9,6 @@ public interface IUserRepository
     Task<IdentityResult> CreateUserAsync(User user, string password);
     Task<User> FindExistedUserByEmailAsync(string email);
     Task<User> FindUserByIdAsync(string id);
+    Task AddUserToRole(User user);
 }
 

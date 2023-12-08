@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using Modules.Security.Domain.Errors;
 
-namespace Modules.Security.Domain.Shared
+
+namespace Modules.Security.Domain.Shared;
+
+public class Result
 {
-    public class Result
+    protected Result(bool isSuccess, Error error)
     {
-        protected Result(bool isSuccess, Error error)
+        if (isSuccess && error != Error.None || !isSuccess && error == Error.None)
         {
-            if (isSuccess && error != Error.None || !isSuccess && error == Error.None)
-            {
-                throw new ArgumentException("Invalid Error", nameof(error));
-            }
-            IsSuccess = isSuccess;
-            Error = error;
+            throw new ArgumentException("Invalid Error", nameof(error));
         }
-
-        public bool IsSuccess { get; }
-        public bool IsFailure => !IsSuccess;
-        public Error Error { get; }
-        public static Result Success() => new(true, Error.None);
-
-        public static Result Failure(Error error) => new(false, error);
+        IsSuccess = isSuccess;
+        Error = error;
     }
+
+    public bool IsSuccess { get; }
+    public bool IsFailure => !IsSuccess;
+    public Error Error { get; }
+    public static Result Success() => new(true, Error.None);
+
+    public static Result Failure(Error error) => new(false, error);
 }

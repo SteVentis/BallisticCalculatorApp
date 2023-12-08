@@ -31,7 +31,7 @@ public static class SecurityModuleConfiguration
         services.AddTransient<IEmailSender, EmailSender>();
         services.AddScoped<EmailSettings>();
         services.AddScoped<IEmailProvider, EmailProvider>();
-        services.AddAutoMapper(typeof(AppUserProfile).Assembly);
+        services.AddAutoMapper(typeof(UserProfile).Assembly);
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IAdminRepository, AdminRepository>();
         services.AddScoped<IJwtProvider, JwtProvider>();

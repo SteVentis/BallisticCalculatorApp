@@ -4,7 +4,7 @@ namespace Modules.Security.Domain.Models;
 
 public class User : IdentityUser
 {
-
+    
 }
     
 

@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using Modules.Security.Application.Abstractions.AuthProviders;
+﻿using Modules.Security.Application.Abstractions.AuthProviders;
 using Modules.Security.Application.Abstractions.Messaging;
+using Modules.Security.Domain.Errors;
 using Modules.Security.Domain.Repositories.Interfaces;
 using Modules.Security.Domain.Shared;
 
@@ -21,24 +21,22 @@ internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, TokenR
     {
         var user = await _userRepo.FindExistedUserByEmailAsync(request.UserLoginForm.Email);
 
+        TokenResponse response = null!;
+
         if (user is null)
         {
-            // Error
-
-            return null!;
+            return TResult<TokenResponse>.Failure(LoginError.EmailDoesNotExist, response);
         }
 
         var isPasswordValid = await _userRepo.CheckPasswordAsync(user, request.UserLoginForm.Password);
 
         if (!isPasswordValid)
         {
-            // Error
-
-            return null!;
+            return TResult<TokenResponse>.Failure(LoginError.InvalidPassword, response);
         }
 
-        TokenResponse tokenResponse = await _jwtProvider.GenerateJwtTokenAsync(user, null!);
+        response = await _jwtProvider.GenerateJwtTokenAsync(user, null!);
 
-        return TResult<TokenResponse>.Success(tokenResponse);
+        return TResult<TokenResponse>.Success(response);
     }
 }

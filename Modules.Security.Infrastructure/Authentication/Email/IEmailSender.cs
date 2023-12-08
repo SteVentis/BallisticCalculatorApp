@@ -1,4 +1,6 @@
-﻿namespace Modules.Security.Infrastructure.Authentication.Email;
+﻿using Modules.Security.Domain.Models;
+
+namespace Modules.Security.Infrastructure.Authentication.Email;
 
 internal interface IEmailSender
 {

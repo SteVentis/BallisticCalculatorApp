@@ -1,6 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
-
+using Modules.Security.Domain.Models;
 
 namespace Modules.Security.Infrastructure.Authentication.Email;
 

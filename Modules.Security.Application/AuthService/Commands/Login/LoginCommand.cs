@@ -1,5 +1,5 @@
 ﻿using Modules.Security.Application.Abstractions.Messaging;
-using Modules.Security.Application.Dtos;
+using Modules.Security.Domain.Dtos;
 
 
 

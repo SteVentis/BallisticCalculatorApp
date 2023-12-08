@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AuthService\Queries\ConfirmEmail\" />
+    <Folder Include="AuthService\Queries\" />
   </ItemGroup>
 
 </Project>
