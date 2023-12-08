@@ -3,7 +3,7 @@
 
 namespace Modules.Security.Domain.Shared;
 
-public class Result
+public class Result : IResult
 {
     protected Result(bool isSuccess, Error error)
     {

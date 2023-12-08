@@ -9,6 +9,16 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.24" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Context\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modules.BallisticCards.Application\Modules.BallisticCards.Application.csproj" />
+    <ProjectReference Include="..\Modules.BallisticCards.Domain\Modules.BallisticCards.Domain.csproj" />
   </ItemGroup>
 
 </Project>

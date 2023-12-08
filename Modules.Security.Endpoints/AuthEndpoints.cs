@@ -1,12 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Modules.Security.Application.AuthService;
 using Modules.Security.Application.AuthService.Commands.Login;
 using Modules.Security.Application.AuthService.Commands.RefreshToken;
 using Modules.Security.Application.AuthService.Commands.Register;
-using Modules.Security.Application.Dtos;
+using Modules.Security.Domain.Dtos;
 
 namespace Modules.Security.Endpoints;
 
@@ -20,7 +21,7 @@ public static class AuthEndpoints
 
             var result = sender.Send(command, cancellationToken);
 
-            return result;
+            return result.Result.IsSuccess ? Results.Ok(result) : Results.Problem();
         });
 
         app.MapPost("/login", ([FromBody]UserLoginForm userLogin, CancellationToken cancellationToken, ISender sender) =>
@@ -29,7 +30,7 @@ public static class AuthEndpoints
 
             var result = sender.Send(command, cancellationToken);
 
-            return result;
+            return result.Result.IsSuccess ? Results.Ok(result) : Results.Problem();
         });
 
         app.MapPost("/refresh-token", ([FromBody]TokenRequest tokenRequest, CancellationToken cancellationToken, ISender sender) =>
@@ -38,7 +39,7 @@ public static class AuthEndpoints
 
             var result = sender.Send(command, cancellationToken);
 
-            return result;
+            return result.Result.IsSuccess ? Results.Ok(result) : Results.Problem();
         });
     }
 }

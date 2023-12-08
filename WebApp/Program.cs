@@ -12,7 +12,7 @@ using WebApp.AuthOptionSetup;
 using WebApp.EmailOptions;
 using WebApp.Middleware;
 using Modules.Security.Infrastructure.Authentication.Email;
-
+using Modules.BallisticCards.Infrastructure.config;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen();
 // Add Services
 builder.Services.AddBallisticCalculationsModuleServices();
 builder.Services.AddSecurityModuleServices();
+builder.Services.AddBallisticCardModuleServices();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer();
@@ -55,6 +56,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 var emailConfig = builder.Configuration.GetSection("EmailSettings").Get<EmailSettings>();
 
+builder.Services.AddSingleton(emailConfig!);
+
 // Jwt Settings
 builder.Services.ConfigureOptions<JwtSettingsSetup>();
 builder.Services.ConfigureOptions<JwtBearerSettingsSetup>();
@@ -71,7 +74,7 @@ var logger = new LoggerConfiguration()
 builder.Host.UseSerilog(logger);
 
 // Add Middleware
-builder.Services.AddScoped<ExceptionMiddleware>();
+builder.Services.AddScoped<ExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
@@ -86,7 +89,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Add EndPoints
 app.AddAuthEndpoints();

@@ -33,17 +33,12 @@ internal sealed class RegisterCommandHandler : ICommandHandler<RegisterCommand, 
 
         if (checkIfUserExists is not null)
         {
-            return TResult<EmailToken>.Failure(RegisterError.UserExists, tokenResponse);
+            return TResult<EmailToken>.Failure(RegisterError.UserExists(checkIfUserExists), tokenResponse);
         }
 
         var userToBeAdded = _mapper.Map<User>(request.UserRegistration);
 
-        var result = await _userRepo.CreateUserAsync(userToBeAdded, request.UserRegistration.Password);
-
-        if (!result.Succeeded)
-        {
-            return TResult<EmailToken>.Failure(RegisterError.CannotRegister, tokenResponse);
-        }
+        await _userRepo.CreateUserAsync(userToBeAdded, request.UserRegistration.Password);
 
         tokenResponse = new EmailToken
         {
@@ -58,6 +53,7 @@ internal sealed class RegisterCommandHandler : ICommandHandler<RegisterCommand, 
                                                    "Confirmation email link", 
                                                    confirmationLink, 
                                                    null!);
+
         await _userRepo.AddUserToRole(userToBeAdded);
 
         return TResult<EmailToken>.Success(tokenResponse);

@@ -2,14 +2,18 @@
 
 namespace Modules.Security.Domain.Shared;
 
-public class TResult<TResponse> : Result
+public class TResult<TResponse> : IResult
 {
-    protected TResult(bool isSuccess, Error error, TResponse value) : base(isSuccess, error)
+    protected TResult(bool isSuccess, Error error, TResponse value) //: base(isSuccess, error)
     {
         Value = value;
     }
 
     public TResponse Value { get; }
+
+    public bool IsSuccess { get; }
+
+    public bool IsFailure => !IsSuccess;
 
     public static TResult<TResponse> Success(TResponse entity) => new TResult<TResponse>(true, Error.None, entity);
 

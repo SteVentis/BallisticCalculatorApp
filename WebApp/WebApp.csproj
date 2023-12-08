@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Modules.BallisticCalculations.Core\Modules.BallisticCalculations.Core.csproj" />
     <ProjectReference Include="..\Modules.BallisticCalculations.Endpoints\Modules.BallisticCalculations.Endpoints.csproj" />
+    <ProjectReference Include="..\Modules.BallisticCards.Infrastructure\Modules.BallisticCards.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules.Security.Domain\Modules.Security.Domain.csproj" />
     <ProjectReference Include="..\Modules.Security.Endpoints\Modules.Security.Endpoints.csproj" />
     <ProjectReference Include="..\Modules.Security.Infrastructure\Modules.Security.Infrastructure.csproj" />

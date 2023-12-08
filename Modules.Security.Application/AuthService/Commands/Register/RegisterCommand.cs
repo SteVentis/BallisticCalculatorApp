@@ -4,6 +4,6 @@ using Modules.Security.Domain.Shared;
 
 namespace Modules.Security.Application.AuthService.Commands.Register;
 
-public sealed record RegisterCommand(UserRegistrationForm UserRegistration) : ICommand<TResult<EmailToken>>
+public sealed record RegisterCommand(UserRegistrationForm UserRegistration) : ICommand<EmailToken>
 {
 }

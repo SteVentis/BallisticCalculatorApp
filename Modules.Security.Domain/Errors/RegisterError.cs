@@ -1,8 +1,10 @@
-﻿namespace Modules.Security.Domain.Errors;
+﻿using Modules.Security.Domain.Models;
+
+namespace Modules.Security.Domain.Errors;
 
 public static class RegisterError
 {
-    public readonly static Error UserExists = new("User cannot register because this email exists.");
-    public readonly static Error CannotRegister = new("Problem to register user.");
-    public readonly static Error CannotFindUser = new("Cannot find user with this email.");
+    public static Error UserExists(User user) => new(
+        $"User {user.FirstName + " " + user.LastName} cannot register because the email {user.Email} exists.");
+    public static Error CannotFindUser(string email) => new($"Cannot find user with this {email} email.");
 }
