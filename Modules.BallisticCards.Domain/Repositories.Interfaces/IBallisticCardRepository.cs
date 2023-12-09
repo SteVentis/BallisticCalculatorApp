@@ -5,7 +5,7 @@ namespace Modules.BallisticCards.Domain.Repositories.Interfaces;
 public interface IBallisticCardRepository
 {
     Task InsertBallisticCard(BallisticCard ballisticCard);
-    Task<List<BallisticCard>> GetUsersAllBallisticCards(string id);
+    Task<List<BallisticCard>> GetUsersAllBallisticCards(string usersId);
     Task DeleteBallisticCard(string id);
 
 }

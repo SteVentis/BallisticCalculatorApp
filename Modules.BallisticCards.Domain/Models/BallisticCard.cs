@@ -2,7 +2,8 @@
 
 public sealed class BallisticCard
 {
-    public string Id { get; set; } = null!;
+    public long Id { get; set; }
     public string RifleName { get; set; } = null!;
-    public string TrajectoryValues { get; set; } = null!;
+    public string TrajectoryValuesJson { get; set; } = null!;
+    public string UserId { get; set; } = null!;
 }
