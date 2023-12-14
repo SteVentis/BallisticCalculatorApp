@@ -1,12 +1,14 @@
-﻿using Modules.BallisticCards.Application.Abstractions;
+﻿
+using Modules.BallisticCards.Application.Abstractions;
 using Modules.BallisticCards.Domain.Dtos;
+using Modules.BallisticCards.Domain.Models;
 using OfficeOpenXml;
 
 namespace Modules.BallisticCards.Infrastructure.Services;
 
 internal sealed class ExcelService : IExcelService
 {
-    public ExcelWorksheet ExportBallisticCardToExcel(BallisticCardDto ballisticCard)
+    public ExcelFile ExportBallisticCardToExcel(BallisticCardDto ballisticCard)
     {
         //License
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -33,9 +35,21 @@ internal sealed class ExcelService : IExcelService
                 workSheet.Cells[3, 4].Value = trajectoryPoint.ToF;
             }
 
-            return workSheet;
-            
-           
+            var stream = new MemoryStream();
+
+            package.SaveAs(stream);
+
+            stream.Seek(0, SeekOrigin.Begin);
+
+            var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            var filename = $"Ballistic_Card_Of_{ballisticCard.RifleName}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.xlsx";
+
+            return new ExcelFile
+            {
+                Content = stream.ToArray(),
+                ContentType = contentType,
+                FileName = filename
+            };
         }
     }
 }

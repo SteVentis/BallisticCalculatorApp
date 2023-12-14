@@ -100,6 +100,10 @@ internal sealed class BallisticCardBuilder : IBallisticCardBuilder
 
         BallisticCard ballisticCard = new();
         ballisticCard.RifleName = rifle.RifleName.Value;
+        ballisticCard.BulletWeigth = ammo.BulletWeight.Value;
+        ballisticCard.BulletDiameter = ammo.BulletDiameter.Value;
+        ballisticCard.ZeroDistance = rifle.ZeroAtDistance.Value;
+        ballisticCard.DateCreated = DateTime.Now;
         ballisticCard.TrajectoryValues = new List<TrajectoryValues>();
 
         TrajectoryValues trajectoryValues;

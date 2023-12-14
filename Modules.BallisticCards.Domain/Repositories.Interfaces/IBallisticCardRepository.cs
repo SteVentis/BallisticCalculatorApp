@@ -6,6 +6,7 @@ public interface IBallisticCardRepository
 {
     Task InsertBallisticCard(BallisticCard ballisticCard);
     Task<List<BallisticCard>> GetUsersAllBallisticCards(string usersId);
-    Task DeleteBallisticCard(string id);
+    Task<BallisticCard> GetBallisticCardById(long id);
+    Task DeleteBallisticCard(long id);
 
 }

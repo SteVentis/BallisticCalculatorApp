@@ -55,6 +55,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppUI", "WebAppUI\WebApp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAppHosts", "WebAppHosts", "{F71E3529-1D66-4A1B-91C6-0AC6F73A5417}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.BallisticCards.Endpoints", "Modules.BallisticCards.Endpoints\Modules.BallisticCards.Endpoints.csproj", "{9695E1EC-978A-4BA1-8E61-D6183FA931A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,10 @@ Global
 		{83C0FD99-E368-4B61-B137-626B4E4B0B23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83C0FD99-E368-4B61-B137-626B4E4B0B23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83C0FD99-E368-4B61-B137-626B4E4B0B23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9695E1EC-978A-4BA1-8E61-D6183FA931A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9695E1EC-978A-4BA1-8E61-D6183FA931A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9695E1EC-978A-4BA1-8E61-D6183FA931A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9695E1EC-978A-4BA1-8E61-D6183FA931A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,6 +168,7 @@ Global
 		{A956B64A-DA7E-4DDF-A07B-F080FDE7974D} = {E0DFED84-3A73-40DC-B656-81A532F44121}
 		{83C0FD99-E368-4B61-B137-626B4E4B0B23} = {F71E3529-1D66-4A1B-91C6-0AC6F73A5417}
 		{F71E3529-1D66-4A1B-91C6-0AC6F73A5417} = {841C1BFD-16FC-4188-ABC7-D7A3695D7371}
+		{9695E1EC-978A-4BA1-8E61-D6183FA931A0} = {2463E58A-B46F-453C-90EB-E199899F8A6F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {00557022-8E2B-44F9-BE9E-91C562FD5B31}
